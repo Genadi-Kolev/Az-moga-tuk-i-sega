@@ -7,15 +7,20 @@ public class Queen : Tile
     private Tile[,] tiles;
     private int desiredX;
     private int desiredY = 0;
- 
+
+    public static GameObject QueenImg;
+
+    public static event System.Action OnQueenPlaced;
+
     private void Start()
     {
         KillAvailable();
+        OnQueenPlaced?.Invoke();
     }
 
     public void KillAvailable()
     {
-        Instantiate(Grid.Instance.QueenImg, new Vector2(x, y), Quaternion.identity, gameObject.transform);
+        Instantiate(QueenImg, new Vector2(x, y), Quaternion.identity, gameObject.transform);
         tiles = Grid.Instance.Tiles;
         foreach(var tile in tiles)
         {
@@ -39,7 +44,5 @@ public class Queen : Tile
             if (tile.x == desiredX && tile.y == desiredY)
                 tile.Available = false;
         }
-
-        GameManager.UpdateGameState();
     }
 }

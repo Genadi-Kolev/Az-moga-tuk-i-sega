@@ -10,7 +10,7 @@ public class Ending : MonoBehaviour
     [SerializeField]
     private TMP_Text Ending_Text;
 
-    int player = (int)GameManager.playerState;
+    int player = (int)GameManager.PlayerState;
     private void Awake()
     {
         StartCoroutine(Final_Score());

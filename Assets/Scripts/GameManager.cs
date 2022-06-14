@@ -6,31 +6,35 @@ using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private int _m = 7, _n = 7;
-    public int m
+    public int M
     {
         get => _m;
-        set { if (value > 3 && value < 13) _m = value; }
+        set { if (value > 3 && value < 19) _m = value; }
     }
-    public int n
+    public int N
     {
         get => _n;
-        set { if (value > 3 && value < 13) _n = value; }
+        set { if (value > 3 && value < 19) _n = value; }
     }
 
-    public static PlayerState playerState = PlayerState.Player1;
-    
+    public static PlayerState PlayerState { get; private set; }
+
+    private void OnEnable() => Queen.OnQueenPlaced += UpdateGameState;
+    private void OnDisable() => Queen.OnQueenPlaced -= UpdateGameState;
+
     private void Awake()
     {
+        PlayerState = PlayerState.Player1;
         DontDestroyOnLoad(gameObject);
     }
 
-    public static void UpdateGameState()
+    private void UpdateGameState()
     {
-        int enumState = (int) playerState * -1;
-        playerState = (PlayerState)enumState;
+        var enumState = (int) PlayerState * -1;
+        PlayerState = (PlayerState)enumState;
 
 
-        int deadCells = 0;
+        var deadCells = 0;
         foreach (var tile in Grid.Instance.Tiles)
         {
             if (!tile.Available) deadCells++;

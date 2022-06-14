@@ -14,24 +14,24 @@ public class MainMenu : MonoBehaviour
 
     private void Update()
     {
-        M.text = GameManager.Instance.m.ToString();
-        N.text = GameManager.Instance.n.ToString();
+        M.text = GameManager.Instance.M.ToString();
+        N.text = GameManager.Instance.N.ToString();
     }
     public void AddM()
     {
-        GameManager.Instance.m++;
+        GameManager.Instance.M++;
     }
     public void AddN()
     {
-        GameManager.Instance.n++;
+        GameManager.Instance.N++;
     }
     public void DecreaseM()
     {
-        GameManager.Instance.m--;
+        GameManager.Instance.M--;
     }
     public void DecreaseN()
     {
-        GameManager.Instance.n--;
+        GameManager.Instance.N--;
     }
 
     public void StartGame()

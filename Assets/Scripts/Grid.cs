@@ -8,11 +8,8 @@ public class Grid : Singleton<Grid>
 
     [SerializeField] private int m;
     [SerializeField] private int n;
-    public GameObject QueenImg;
 
-
-    private Tile[,] tiles;
-    public Tile[,] Tiles { get => tiles; }
+    public Tile[,] Tiles { get; private set; }
     
     [SerializeField] private GameObject tilePrefab;
 
@@ -27,19 +24,11 @@ public class Grid : Singleton<Grid>
         FocusOnCentre();
     }
 
-    private void FocusOnCentre()
-    {
-        var centre = new GameObject(name: "camera center point");
-        centre.transform.position = new Vector2((float)(m-1) / 2, (float)(n-1) / 2);
-        cam.LookAt = centre.transform;
-        cam.Follow = centre.transform;
-    }
-
     private void GenerateGridTiles()
     {
-        int m = GameManager.Instance.m;
-        int n = GameManager.Instance.n;
-        tiles = new Tile[m, n];
+        m = GameManager.Instance.M;
+        n = GameManager.Instance.N;
+        Tiles = new Tile[m, n];
 
         for (int i = 0; i < m; i++)
         {
@@ -57,5 +46,11 @@ public class Grid : Singleton<Grid>
         }
     }
 
-
+    private void FocusOnCentre()
+    {
+        var centre = new GameObject(name: "camera center point");
+        centre.transform.position = new Vector2((float)(n - 1) / 2, (float)(m - 1) / 2);
+        cam.LookAt = centre.transform;
+        cam.Follow = centre.transform;
+    }
 }
